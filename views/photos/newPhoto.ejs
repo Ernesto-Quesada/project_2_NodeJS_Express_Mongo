@@ -1,0 +1,32 @@
+<h2>New photo newphoto.ejs</h2>
+
+<% if (typeof errors !=='undefined') {%>
+<ul>
+  <% for (key in errors)  {%>
+  <li><%= errors[key].message %></li>
+  <% } %>
+</ul>
+<% } %>
+
+<form method="post" action="/photo">
+  <div>
+    <label for="photoTitle"> Title: </label>
+    <input type="text" name="photoTitle" id="photoTitle">
+  </div>
+
+  <div>
+    <label for="yearTaken"> Year: </label>
+    <input type="number" name="yearTaken" id="yearTaken">
+  </div>
+
+  <div>
+    <label for="author"> Author </label>
+    <input type="text" name="author" id="author">
+  </div>
+  <div>
+    <label for="description"> Description </label>
+    <input type="text" name="description" id="description">
+  </div>
+
+  <button> Add this photo </button>
+</form>

@@ -1,0 +1,26 @@
+<h2> Photo Review</h2>
+<h3>You are reviewing <%= photo.photoTitle%></h3>
+<form method="post" action ="/photo/<%= photo._id%>/reviews">
+<div class="row">
+        <div class="col-md-6">
+        <label for="content">review</label>
+        <textarea id="content" name="content"></textarea>
+        </div>
+</div>
+
+<div class="row">
+        <div class="col-md-6">
+        <label for="stars">Rate (1-5)</label>
+        <input id="stars" type="number" name="stars">
+        </div>
+</div>
+<div class="row">
+        <div class="col-md-6">    
+        <label for="author">author</label>
+        <input id="author" name="author">
+        </div>
+</div>
+        <br>
+        <button type="submit review">submit</button>
+
+</form>
