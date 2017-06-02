@@ -4,7 +4,7 @@ const router = express.Router();
 // require the Photo model here
 const Photo = require('../models/photoModel.js');
 
-// ===   Render a list of Photos and sends ================
+// ===   Render a list of all Photos and sends ================
 //====   the list with photoList variable ================
 //====    to the view =====================================
 router.get('/photo', (req, res, next) => {
@@ -68,9 +68,22 @@ router.get('/photo/:id',(req,res,next) => {
         next();
         return;
       }
+      ave = thePhoto.reviews.length;
+      console.log("=========",ave);
+      
+      starSum = thePhoto.reviews.forEach((star) => {
+        
+      console.log('+=+=+======',star);
+      
+    }, this);
+    console.log("----->>>>",starSum);
+     // [array].reduce((a,b) => a+b, 0)
       res.render('photos/photoDetail.ejs', {
+        ave:ave,
         photo:thePhoto
       });
+      //  console.log(thePhoto);
+
     });
 
 });

@@ -30,3 +30,35 @@
 
   <button> Add this photo </button>
 </form>
+<h2>Photo List index.js</h2>
+<div>
+<h3>  
+  <a href="/photo/new">Add a new photo</a>
+  </h3>
+</div>
+<% photoList.forEach((onePhoto) => { %>
+ <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4><i class="fa fa-fw fa-check"></i> <%= onePhoto.photoTitle%></h4>
+          </div>
+          <div class="col-md-12 col-sm-6">
+                <a href="portfolio-item.html">
+                   <img class="img-responsive img-portfolio img-hover" src='<%=onePhoto.imageUrl%>' alt="">
+                </a>
+                  <div class="panel-body">
+                      <p>Year <%= onePhoto.yearTaken %></p>
+                      <p>Author<%= onePhoto.author%></p>
+                      <p>description <%= onePhoto.description %></p>
+
+                    <a href="/photo/<%= onePhoto._id %>" class="btn btn-default">see details</a>
+                      <br>
+                    <a href="/photo/<%= onePhoto._id %>/edit" class="btn btn-default">Edit</a>
+              <form method="post" action="/photo/<%= onePhoto._id %>/delete">
+              <button>Delete</button>
+              </form>
+                  </div>
+          </div>
+        </div>
+</div>
+  <% }) %>

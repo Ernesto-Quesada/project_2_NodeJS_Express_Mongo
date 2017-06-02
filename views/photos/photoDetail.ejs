@@ -1,28 +1,92 @@
-<h2>Photo details photodetail.ejs</h2>
-<div>
-    <h3><%= photo.photoTitle%></h3>
-    <h3>Reviews</h3>
-    <ul>
-        <% photo.reviews.forEach((oneReview,index)=>{ %>
-            <li>
-            <% index + 1 %>
-            <p><% index + 1 %></p>
-            <p><%= oneReview.content%> </p>
-            <p><%= oneReview.stars%>  out of 5</p>
-            <p><%= oneReview.author%> </p>
-            </li>
-        <% }) %>
-    </ul>
+<!-- Page Content -->
+<h2><%= ave %></h2>
+    <div class="container">
 
-    <div class="row">
-        <div class="col-md-6">
-        <img class="img-responsive" src="<%= photo.imageUrl %>" alt="">
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header"><%= photo.photoTitle%> put rating here as well as amount of rating</h1>
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a>
+                    </li>
+                    <li class="active"><%= photo.photoTitle%></li>
+                </ol>
+            </div>
         </div>
-    </div>
-    <div class="row">
-    <div class="col-md-6">
-    <h3><a href="/photos/<%= photo._id %>/reviews/new">Review this product</a></h3>
-     </div>
-    </div>
+        <!-- /.row -->
 
-</div>
+        <!-- Portfolio Item Row -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="item">
+                    <img class="img-responsive" src="<%= photo.imageUrl %>" alt="">
+                </div>
+             </div>
+            <div class="col-md-4">
+                <h3>About this picture </h3>
+                <p><%= photo.description%></p>
+                <h4>Author</h4>
+                <p><%= photo.author%></p>
+                <h4>Year</h4>
+                <p><%= photo.yearTaken%></p>
+            </div>
+        </div>
+        <!-- /.row -->
+        <hr>
+        <!-- Related Projects Row -->
+        <div class="row">
+        <div class="col-lg-12">
+                <a href="/photos/<%= photo._id %>/reviews/new"><h3 class="page-header">Review this Picture</h3></a>
+            </div>
+        </div>
+
+        <!-- Related Projects Row -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h3 class="page-header">Community Photos</h3>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a href="#">
+                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a href="#">
+                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a href="#">
+                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-xs-6">
+                <a href="#">
+                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+        <h3> User Reviews </h3>
+
+<ul>
+  <% photo.reviews.forEach((oneReview) => { %>
+    <li>
+      <p> <%= oneReview.content %> </p>
+      <p><%= oneReview.stars %> ⭐️       out of 5 </p>
+      <strong> <%= oneReview.author %> </strong>
+    </li>
+  <% }) %>
+</ul>
+
+
+
+
