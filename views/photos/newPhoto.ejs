@@ -1,4 +1,4 @@
-<h2>New photo newphoto.ejs</h2>
+<h2>Adding New Photo</h2>
 
 <% if (typeof errors !=='undefined') {%>
 <ul>
@@ -8,57 +8,26 @@
 </ul>
 <% } %>
 
-<form method="post" action="/photo">
-  <div>
+<form method="post" action="/photo" enctype="multipart/form-data">
+  <div class="form-group">
     <label for="photoTitle"> Title: </label>
     <input type="text" name="photoTitle" id="photoTitle">
   </div>
 
-  <div>
+  <div class="form-group">
     <label for="yearTaken"> Year: </label>
     <input type="number" name="yearTaken" id="yearTaken">
   </div>
 
-  <div>
-    <label for="author"> Author </label>
-    <input type="text" name="author" id="author">
-  </div>
-  <div>
+  
+  <div class="form-group">
     <label for="description"> Description </label>
     <input type="text" name="description" id="description">
   </div>
-
-  <button> Add this photo </button>
+<div class="form-group">
+  <label for="photo-input"> Upload Photo </label>
+  <input  id="photo-input" type="file" name="photo">
+</div>
+  <button class="btn btn-primary"> Add this photo </button>
 </form>
-<h2>Photo List index.js</h2>
-<div>
-<h3>  
-  <a href="/photo/new">Add a new photo</a>
-  </h3>
-</div>
-<% photoList.forEach((onePhoto) => { %>
- <div class="col-md-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4><i class="fa fa-fw fa-check"></i> <%= onePhoto.photoTitle%></h4>
-          </div>
-          <div class="col-md-12 col-sm-6">
-                <a href="portfolio-item.html">
-                   <img class="img-responsive img-portfolio img-hover" src='<%=onePhoto.imageUrl%>' alt="">
-                </a>
-                  <div class="panel-body">
-                      <p>Year <%= onePhoto.yearTaken %></p>
-                      <p>Author<%= onePhoto.author%></p>
-                      <p>description <%= onePhoto.description %></p>
 
-                    <a href="/photo/<%= onePhoto._id %>" class="btn btn-default">see details</a>
-                      <br>
-                    <a href="/photo/<%= onePhoto._id %>/edit" class="btn btn-default">Edit</a>
-              <form method="post" action="/photo/<%= onePhoto._id %>/delete">
-              <button>Delete</button>
-              </form>
-                  </div>
-          </div>
-        </div>
-</div>
-  <% }) %>

@@ -11,13 +11,13 @@ const routeforUser = express.Router();
 // routeforUser.get('/user/:id', (req, res, next) => {
 
 routeforUser.get('/profile/edit',
-ensure.ensureLoggedIn('/login'),
+    ensure.ensureLoggedIn('/login'),
 
-  (req, res, next) => {
-    res.render('user/editUserProfile.ejs', {
-      successMessage: req.flash('success')
-    });
-  }
+    (req, res, next) => {
+        res.render('user/editUserProfile.ejs', {
+        successMessage: req.flash('success')
+        });
+    }
 );
 
 // <form method="post" action="/profile/edit">
@@ -31,6 +31,19 @@ routeforUser.post('/profile/edit',
     const currentPassword = req.body.profileCurrentPassword;
     const newPassword = req.body.profileNewPassword;
 
+    if (profileName === '' || profileUsername === '' || currentPassword==='' || newPassword ==='') {
+      res.render('user/editUserProfile.ejs', {
+        errorMessage: 'Please all info is required.'
+      });
+      return;
+    }
+    if (newPassword.length<=6 || newPassword.length >=12) {
+      res.render('user/editUserProfile.ejs', {
+        errorMessage: 'Password need to have between 6 and 12 characters.'
+      });
+      return;
+    }
+
     User.findOne(
       { username: profileUsername },
       { username: 1 },
@@ -43,7 +56,7 @@ routeforUser.post('/profile/edit',
         // if there's a user with the username and it's not you
         if (foundUser && !foundUser._id.equals(req.user._id)) {
           res.render('user/edit-profile-view.ejs', {
-            errorMessage: 'Username already taken. 😤'
+            errorMessage: 'Username already taken.'
           });
           return;
         }
@@ -74,25 +87,12 @@ routeforUser.post('/profile/edit',
             return;
           }
 
-          req.flash('success', 'Changes saved. 👻');
+          req.flash('success', 'Changes saved.');
 
           res.redirect('/profile/edit');
         });
 
-        // User.findByIdAndUpdate(
-        //   req.user._id,
-        //   profileChanges,
-        //   (err, theUser) => {
-        //     if (err) {
-        //       next(err);
-        //       return;
-        //     }
-        //
-        //     req.flash('success', 'Changes saved. 👻');
-        //
-        //     res.redirect('/profile/edit');
-        //   }
-        // );
+
       }
     );
   }
@@ -104,6 +104,39 @@ routeforUser.post('/profile/edit',
 //   { username: 'nizar' },
 //   { $set: { role: 'admin' } }
 // )
+routeforUser.get('/myaccount',
+  ensure.ensureLoggedIn(),
+
+  (req, res, next) => {
+    User.find(
+      { owner: req.user._id },
+
+      (err, myAccountPhotoList) => {
+        if (err) {
+          next(err);
+          return;
+        }
+
+        res.render('user/myaccount.ejs', {
+          myAccountPhotoList: myAccountPhotoList,
+          successMessage: req.flash('success')
+        });
+      }
+    );
+  }
+);
+
+
+
+
+
+
+
+
+
+
+
+
 routeforUser.get('/users', (req, res, next) => {
   // If you are logged in AND and admin LEZ DO THIS
   if (req.user && req.user.role === 'admin') {

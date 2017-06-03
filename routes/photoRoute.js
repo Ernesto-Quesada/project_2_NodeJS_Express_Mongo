@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const ensure = require('connect-ensure-login');
+const multer = require('multer');
+const path = require('path');
 
 // require the Photo model here
 const Photo = require('../models/photoModel.js');
@@ -30,18 +33,24 @@ router.get('/photo/new', (req, res, next) => {
 });
 
 
-//=== Post the the form and save the data   =======
+//=== Post the form and save the data   =======
 //======== in the data base   =====================
-router.post('/photo', (req, res, next) => {
+const myUploader = multer({dest: path.join(__dirname, '../public/images')});
+router.post('/photo',
+ ensure.ensureLoggedIn('/login'),
+ myUploader.single('photo'),
 
-      // Iteration #3
+(req, res, next) => {
         console.log( req.body );
+        console.log(req.file);
+
       const newPhotoInfo = {
         photoTitle: req.body.photoTitle,
         yearTaken: req.body.yearTaken,
-        author: req.body.author,
+        //author: req.user._id,
+        owner:req.user._id,
         description: req.body.description,
-        // imageUrl: req.body.imageUrl,
+        imageUrl: `/images/${req.file.filename}`
       }
     const newPhoto = new Photo(newPhotoInfo);
     newPhoto.save( (err) => {
@@ -51,8 +60,9 @@ router.post('/photo', (req, res, next) => {
           });
         return}
         // redirect to the list of photo if it saves
-        return res.redirect('/photo');
+        return res.redirect('/myaccount');
       });
+        console.log('-------+-----')
 });
 //========Details =============
 router.get('/photo/:id',(req,res,next) => {
@@ -68,6 +78,7 @@ router.get('/photo/:id',(req,res,next) => {
         next();
         return;
       }
+User.findbyid(thePhoto.owner)
       ave = thePhoto.reviews.length;
       console.log("=========",ave);
       
