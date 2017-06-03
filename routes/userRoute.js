@@ -108,8 +108,7 @@ routeforUser.get('/myaccount',
   ensure.ensureLoggedIn(),
 
   (req, res, next) => {
-    User.find(
-      { owner: req.user._id },
+    User.find(  { owner: req.user._id },
 
       (err, myAccountPhotoList) => {
         if (err) {

@@ -6,6 +6,7 @@ const path = require('path');
 
 // require the Photo model here
 const Photo = require('../models/photoModel.js');
+const User = require('../models/userModel.js');
 
 // ===   Render a list of all Photos and sends ================
 //====   the list with photoList variable ================
@@ -70,31 +71,43 @@ router.get('/photo/:id',(req,res,next) => {
     const photoId=req.params.id;
 
     Photo.findById(photoId,(err,thePhoto) => {
-      if(err){
-        next(err);
-        return;
-      }
-      if (!thePhoto){
-        next();
-        return;
-      }
-User.findbyid(thePhoto.owner)
-      ave = thePhoto.reviews.length;
-      console.log("=========",ave);
+              if(err){
+                next(err);
+                return;
+              }
+            if (thePhoto){
+              console.log('i found the picture')
+    //   ave = thePhoto.reviews.length;
+    //   console.log("=========",ave);
       
-      starSum = thePhoto.reviews.forEach((star) => {
+    //   starSum = thePhoto.reviews.forEach((star) => {
         
-      console.log('+=+=+======',star);
+    //   console.log('+=+=+======',star);
       
-    }, this);
-    console.log("----->>>>",starSum);
+    // }, this);
+    // console.log("----->>>>",starSum);
      // [array].reduce((a,b) => a+b, 0)
-      res.render('photos/photoDetail.ejs', {
-        ave:ave,
-        photo:thePhoto
-      });
+      
       //  console.log(thePhoto);
+                    console.log(`${thePhoto.owner} this is the owner`)
 
+              User.findById(thePhoto.owner,(err,theUser)=>{
+                if (err) {
+                  next(err);
+                  return;
+                }
+                if (theUser) {
+                  console.log('i found the user')
+                  console.log
+                  res.render('photos/photoDetail.ejs', {
+                    ave:'ssdad',
+                    photo:thePhoto,
+                    usuario:theUser
+                   });
+                }
+              });
+
+            }
     });
 
 });
