@@ -1,5 +1,5 @@
 <!-- Page Content -->
-<h2><%= ave %></h2>
+<h2></h2>
     <div class="container">
 
         <!-- Page Heading/Breadcrumbs -->
@@ -25,12 +25,25 @@
             <div class="col-md-4">
                 <h4>Author</h4>
                 <p><%= usuario.name%></p>
-                
+                <p>usuario autor   <%= usuario._id%></p>
+                <p>cuenta req.user <%= user._id%></p>
                 
                 <h4>Year</h4>
                 <p><%= photo.yearTaken%></p>
+
                 <h3>About this picture </h3>
                 <p><%= photo.description%></p>
+                <!--CHECK THIS why i can not use id below but name is ok-->
+                  <% if (user.username === usuario.username) { %>
+                
+                 <p><%=user._id%></p>
+               <button class="btn btn-lg btn-warning btn-block">edit</button>
+                <form method="post" action="/photo/<%= photo._id %>/delete">
+              <button class="btn btn-lg btn-danger btn-block">Delete</button>
+               </form>
+               
+               <% } %>
+                
             </div>
         </div>
         <!-- /.row -->

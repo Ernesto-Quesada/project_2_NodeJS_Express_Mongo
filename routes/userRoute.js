@@ -3,6 +3,7 @@ const ensure = require('connect-ensure-login');
 const bcrypt = require('bcrypt');
 
 const User = require('../models/userModel.js');
+const Photo = require('../models/photoModel.js');
 
 
 const routeforUser = express.Router();
@@ -108,17 +109,18 @@ routeforUser.get('/myaccount',
   ensure.ensureLoggedIn(),
 
   (req, res, next) => {
-    User.find(  { owner: req.user._id },
+    Photo.find(
+      { owner: req.user._id },
 
-      (err, myAccountPhotoList) => {
+      (err, photoList) => {
         if (err) {
           next(err);
           return;
         }
 
         res.render('user/myaccount.ejs', {
-          myAccountPhotoList: myAccountPhotoList,
-          successMessage: req.flash('success')
+          myAccountPhotoList: photoList,
+        //   successMessage: req.flash('success')
         });
       }
     );

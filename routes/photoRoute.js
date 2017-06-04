@@ -66,17 +66,14 @@ router.post('/photo',
         console.log('-------+-----')
 });
 //========Details =============
-router.get('/photo/:id',(req,res,next) => {
-
-    const photoId=req.params.id;
-
-    Photo.findById(photoId,(err,thePhoto) => {
-              if(err){
-                next(err);
-                return;
-              }
+router.get('/photo/:id',(req,res,next) => { 
+  const photoId=req.params.id;
+  Photo.findById(photoId,(err,thePhoto) => {
+              if(err){  next(err);
+                      return;
+                     }
             if (thePhoto){
-              console.log('i found the picture')
+              // console.log('i found the picture')
     //   ave = thePhoto.reviews.length;
     //   console.log("=========",ave);
       
@@ -89,7 +86,7 @@ router.get('/photo/:id',(req,res,next) => {
      // [array].reduce((a,b) => a+b, 0)
       
       //  console.log(thePhoto);
-                    console.log(`${thePhoto.owner} this is the owner`)
+                    //console.log(`${thePhoto.owner} this is the owner`)
 
               User.findById(thePhoto.owner,(err,theUser)=>{
                 if (err) {
@@ -97,10 +94,9 @@ router.get('/photo/:id',(req,res,next) => {
                   return;
                 }
                 if (theUser) {
-                  console.log('i found the user')
-                  console.log
+                 
                   res.render('photos/photoDetail.ejs', {
-                    ave:'ssdad',
+                    //ave:'ssdad',
                     photo:thePhoto,
                     usuario:theUser
                    });
@@ -147,7 +143,7 @@ router.post('/photo/:id', (req, res, next) => {    //----------
     });
 });
 
-router.post('/photo/:id/delete', (req, res, next) => {
+router.post('/photo/:id/delete', ensure.ensureLoggedIn('/login'),(req, res, next) => {
     const photoId = req.params.id;
     Photo.findByIdAndRemove(photoId,(err, thePhoto) =>{
       if(err){
