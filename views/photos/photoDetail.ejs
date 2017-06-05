@@ -26,22 +26,28 @@
                 <h4>Author</h4>
                 <p><%= usuario.name%></p>
                 <p>usuario autor   <%= usuario._id%></p>
+                <% if (typeof user !== 'undefined') { %>
                 <p>cuenta req.user <%= user._id%></p>
-                
+                <% } %>
                 <h4>Year</h4>
                 <p><%= photo.yearTaken%></p>
 
                 <h3>About this picture </h3>
                 <p><%= photo.description%></p>
                 <!--CHECK THIS why i can not use id below but name is ok-->
+                <% if (typeof user !== 'undefined') { %>
                   <% if (user.username === usuario.username) { %>
                 
                  <p><%=user._id%></p>
-               <button class="btn btn-lg btn-warning btn-block">edit</button>
+                
+               <a id="photoedit" href="/photo/<%= photo._id %>/edit">
+                    <button class="btn btn-lg btn-warning btn-block">Edit</button>
+                </a>
                 <form method="post" action="/photo/<%= photo._id %>/delete">
-              <button class="btn btn-lg btn-danger btn-block">Delete</button>
+                    <button onclick="myFunction()" class="btn btn-lg btn-danger btn-block">Delete</button>
                </form>
                
+               <% } %>
                <% } %>
                 
             </div>
@@ -101,6 +107,11 @@
     </li>
   <% }) %>
 </ul>
+<script>
+function myFunction() {
+    alert("WARNING!!! You are permanently deleting this picture.Hit back now to avoid this action");
+}
+</script>
 
 
 

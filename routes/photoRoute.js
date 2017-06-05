@@ -131,7 +131,7 @@ router.post('/photo/:id', (req, res, next) => {    //----------
         photoTitle: req.body.photoTitle,
         yearTaken: req.body.yearTaken,
         // author: req.body.author,
-        // description: req.body.description,
+        description: req.body.description,
         // imageUrl: req.body.imageUrl,
       };
       Photo.findByIdAndUpdate( photoId,photoChanges, (err,thePhoto) =>{

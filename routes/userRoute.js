@@ -62,10 +62,6 @@ routeforUser.post('/profile/edit',
           return;
         }
 
-        // const profileChanges = {
-        //   name: req.body.profileName,
-        //   username: req.body.profileUsername
-        // };
 
         // add updates from form
         req.user.name = req.body.profileName;
