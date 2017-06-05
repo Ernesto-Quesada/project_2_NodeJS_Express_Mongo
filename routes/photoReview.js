@@ -28,6 +28,18 @@ reviewRoute.post('/photo/:photoid/reviews', (req, res, next) => {
       next(err);
       return;
     }
+    ave = thePhoto.reviews.length;
+      console.log("=========",ave);
+      
+      var sum=0;
+      thePhoto.reviews.forEach((star) => {
+          console.log('+=+=+======',star.stars);
+          sum =star.stars+sum;
+          console.log('+=///',sum);
+          });
+    console.log("----->>>>",sum);
+    var average=sum/ave;
+    console.log(average);
 
       //     REQUIRES THE REVIEW MODEL
       //                     |
@@ -36,7 +48,9 @@ reviewRoute.post('/photo/:photoid/reviews', (req, res, next) => {
       stars: req.body.stars,
       author: req.body.author,
       
-    });
+      starAve:average
+      
+    });console.log('......>>>>>',average);
     thePhoto.reviews.push(theReview);
     thePhoto.save((err) => {
       if (err) {

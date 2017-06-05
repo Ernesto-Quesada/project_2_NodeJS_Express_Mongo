@@ -8,7 +8,7 @@ const photoReview=(require('./photoReview.js'));
 const photoSchema = new Schema({
   photoTitle: { type: String , required: [true, 'Please enter a title'] },
   yearTaken: { type: Number, default: 2017},
-  author:{ type: String},
+  //author:{ type: String},
   description:{ type: String },
   imageUrl: { type: String },
 
@@ -16,9 +16,7 @@ const photoSchema = new Schema({
   owner: { type: Schema.Types.ObjectId },
   //---reviews as subdocument of photos //
   reviews:[photoReview.schema],
-  category:{ type:String,
-    enum:['toys', 'industrial ', 'terrorist killer']
-  }
+
 
 });
 

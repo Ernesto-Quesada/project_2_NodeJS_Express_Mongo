@@ -6,6 +6,9 @@ const path = require('path');
 
 // require the Photo model here
 const Photo = require('../models/photoModel.js');
+
+//requires the User model because there is a query in one 
+//route that will use the User model
 const User = require('../models/userModel.js');
 
 // ===   Render a list of all Photos and sends ================
@@ -13,13 +16,8 @@ const User = require('../models/userModel.js');
 //====    to the view =====================================
 router.get('/photo', (req, res, next) => {
 
-  Photo.find((err, photoList) => {
-    if (err) {
-      next(err);
-      return;
-    }
-    res.render('photos/index.ejs', {
-      photoList: photoList
+  Photo.find((err, photoList) => {if (err) {next(err); return; }
+    res.render('photos/index.ejs', { photoList: photoList
     });
   });
 });
@@ -73,17 +71,20 @@ router.get('/photo/:id',(req,res,next) => {
                       return;
                      }
             if (thePhoto){
-              // console.log('i found the picture')
+              
     //   ave = thePhoto.reviews.length;
     //   console.log("=========",ave);
       
-    //   starSum = thePhoto.reviews.forEach((star) => {
-        
-    //   console.log('+=+=+======',star);
-      
-    // }, this);
-    // console.log("----->>>>",starSum);
-     // [array].reduce((a,b) => a+b, 0)
+    //   var sum=0;
+    //   thePhoto.reviews.forEach((star) => {
+    //       console.log('+=+=+======',star.stars);
+    //  sum =star.stars+sum;
+    // console.log('+=///',sum);
+    //       });
+    // console.log("----->>>>",sum);
+
+
+      //[array].reduce((a,b) => a+b, 0)
       
       //  console.log(thePhoto);
                     //console.log(`${thePhoto.owner} this is the owner`)
