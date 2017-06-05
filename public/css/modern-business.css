@@ -25,7 +25,7 @@ body {
 
 /* Home Page Carousel */
 
-header.carousel {
+/*header.carousel {
     height: 50%;
 }
 
@@ -40,7 +40,7 @@ header.carousel .fill {
     height: 100%;
     background-position: center;
     background-size: cover;
-}
+}*/
 
 /* 404 Page Styles */
 
@@ -87,7 +87,7 @@ footer {
         margin-bottom: 15px;
     }
 
-    header.carousel .carousel {
+ /*   header.carousel .carousel {
         height: 70%;
     }
 }

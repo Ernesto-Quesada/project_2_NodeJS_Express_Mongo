@@ -57,7 +57,12 @@
         <!-- Related Projects Row -->
         <div class="row">
         <div class="col-lg-12">
+        <% if (typeof user !== 'undefined') { %>
                 <a href="/photos/<%= photo._id %>/reviews/new"><h3 class="page-header">Review this Picture</h3></a>
+            <% } else {  %> 
+                <a href="/login"><h3 class="page-header">Please log in to review this picture</h3></a>
+
+           <% } %>
             </div>
         </div>
 
