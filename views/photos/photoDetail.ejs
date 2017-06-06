@@ -73,31 +73,15 @@
                 <h3 class="page-header">Community Photos</h3>
             </div>
 
-            <div class="col-sm-3 col-xs-6">
+            <% photoListAll.forEach((onePhoto) => { %>
+                <div class="col-sm-3 col-xs-6">
                 <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
+                  <img class="img-responsive img-hover img-related" src='<%=onePhoto.imageUrl%>' alt="">
+                 </a>
+                </div>
+                <% }) %>
         </div>
+           
         <!-- /.row -->
 
         <hr>

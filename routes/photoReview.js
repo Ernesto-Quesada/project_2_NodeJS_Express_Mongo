@@ -30,6 +30,7 @@ reviewRoute.post('/photo/:photoid/reviews', (req, res, next) => {
     }
     ave = thePhoto.reviews.length;
       console.log("=========",ave);
+    if(ave!==0){
       
       var sum=0;
       thePhoto.reviews.forEach((star) => {
@@ -37,9 +38,10 @@ reviewRoute.post('/photo/:photoid/reviews', (req, res, next) => {
           sum =star.stars+sum;
           console.log('+=///',sum);
           });
-    console.log("----->>>>",sum);
+    console.log("-SUM of reviews outside de loop---->>>>",sum);
     var average=sum/ave;
     console.log(average);
+    } else average= req.body.stars;
 
       //     REQUIRES THE REVIEW MODEL
       //                     |
@@ -47,12 +49,14 @@ reviewRoute.post('/photo/:photoid/reviews', (req, res, next) => {
       content: req.body.content,
       stars: req.body.stars,
       author: req.body.author,
+      starAve:average,
       
-      starAve:average
-      
-    });console.log('......>>>>>',average);
+    });
+    
     thePhoto.reviews.push(theReview);
+    console.log('reviews',thePhoto.reviews.length);
     thePhoto.save((err) => {
+      
       if (err) {
         next(err);
         return;

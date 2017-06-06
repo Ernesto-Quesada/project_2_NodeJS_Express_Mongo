@@ -3,6 +3,7 @@ const router = express.Router();
 const ensure = require('connect-ensure-login');
 const multer = require('multer');
 const path = require('path');
+const photoListAll=[];
 
 // require the Photo model here
 const Photo = require('../models/photoModel.js');
@@ -15,10 +16,15 @@ const User = require('../models/userModel.js');
 //====   the list with photoList variable ================
 //====    to the view =====================================
 router.get('/photo', (req, res, next) => {
+  //const photoList = ["/images/animalseries1.jpg", "/images"]
 
   Photo.find((err, photoList) => {if (err) {next(err); return; }
-    res.render('photos/index.ejs', { photoList: photoList
+    res.render('photos/index.ejs', 
+    { photoList: photoList,
+      photoListAll:photoList
+
     });
+    console.log("photoList",photoList);
   });
 });
 
@@ -67,43 +73,34 @@ router.post('/photo',
 router.get('/photo/:id',(req,res,next) => { 
   const photoId=req.params.id;
   Photo.findById(photoId,(err,thePhoto) => {
-              if(err){  next(err);
-                      return;
+              if(err){  
+                    next(err);
+                    return;
                      }
-            if (thePhoto){
-              
-    //   ave = thePhoto.reviews.length;
-    //   console.log("=========",ave);
-      
-    //   var sum=0;
-    //   thePhoto.reviews.forEach((star) => {
-    //       console.log('+=+=+======',star.stars);
-    //  sum =star.stars+sum;
-    // console.log('+=///',sum);
-    //       });
-    // console.log("----->>>>",sum);
+              if (thePhoto){ User.findById(thePhoto.owner,(err,theUser)=>{
+                                    if (err) {
+                                      next(err);
+                                      return;
+                                    }
+                // if the user is found render the view and pass 
+                //those variables wth the info
+                if (theUser) {Photo.find({owner:theUser._id},(err,userPhotoList)=>{
+                                                                  if (err) {
+                                                                    next(err);
+                                                                    return;
+                                                                     }
+                { res.render('photos/photoDetail.ejs', {
+                                                        photo:thePhoto,
+                                                        usuario:theUser,
+                                                        photoListAll:userPhotoList
+                                                                    });
+                   console.log('>>>>>>>>>theUser',theUser);
+                   console.log('>>>>>>>>>photoLIST',photoListAll)
 
-
-      //[array].reduce((a,b) => a+b, 0)
-      
-      //  console.log(thePhoto);
-                    //console.log(`${thePhoto.owner} this is the owner`)
-
-              User.findById(thePhoto.owner,(err,theUser)=>{
-                if (err) {
-                  next(err);
-                  return;
-                }
-                if (theUser) {
-                 
-                  res.render('photos/photoDetail.ejs', {
-                    //ave:'ssdad',
-                    photo:thePhoto,
-                    usuario:theUser
-                   });
-                }
+                            }
+                })}
+                
               });
-
             }
     });
 
