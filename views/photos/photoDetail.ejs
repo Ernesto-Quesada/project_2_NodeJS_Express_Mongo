@@ -5,7 +5,7 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><%= photo.photoTitle%> put rating here as well as amount of rating</h1>
+                <h1 class="page-header"><%= photo.photoTitle%></h1>
                 <ol class="breadcrumb">
                     <li><a href="/">Home</a>
                     </li>
@@ -23,34 +23,35 @@
                 </div>
              </div>
             <div class="col-md-4">
-                <h4>Author</h4>
-                <p><%= usuario.name%></p>
-                <p>usuario autor   <%= usuario._id%></p>
-                <% if (typeof user !== 'undefined') { %>
-                <p>cuenta req.user <%= user._id%></p>
-                <% } %>
-                <h4>Year</h4>
-                <p><%= photo.yearTaken%></p>
+                <p class="p-details">Author</p>
+                <h3 class="h3-details"><%= usuario.name%></h3>
+                
+                
+                <p class="p-details">Year</p>
+                <h3 class="h3-details"><%= photo.yearTaken%></h3>
 
-                <h3>About this picture </h3>
-                <p><%= photo.description%></p>
+                <h5 class="h3-details">About this picture </h5>
+                <p class='p-description'><%= photo.description%></p>
+                
+            </div>
+        </div>
                 <!--CHECK THIS why i can not use id below but name is ok-->
                 <% if (typeof user !== 'undefined') { %>
                   <% if (user.username === usuario.username) { %>
                 
-                 <p><%=user._id%></p>
+                
                 
                <a id="photoedit" href="/photo/<%= photo._id %>/edit">
-                    <button class="btn btn-lg btn-warning btn-block">Edit</button>
+                    <button class="btn  btn-warning ">Edit</button>
                 </a>
                 <form method="post" action="/photo/<%= photo._id %>/delete">
-                    <button onclick="myFunction()" class="btn btn-lg btn-danger btn-block">Delete</button>
+                    <button onclick="myFunction()" class="btn  btn-danger ">Delete</button>
                </form>
                
                <% } %>
                <% } %>
-                
-            </div>
+        <div class="row">
+
         </div>
         <!-- /.row -->
         <hr>
@@ -70,32 +71,48 @@
         <div class="row">
 
             <div class="col-lg-12">
-                <h3 class="page-header">Community Photos</h3>
+            <% if (typeof user !== 'undefined') { %>
+                <h3 class="page-header">Your Photos</h3>
+                <% } else {  %> 
+                <h3 class="page-header">More from this Author</h3>
+                <% } %>
             </div>
 
             <% photoListAll.forEach((onePhoto) => { %>
                 <div class="col-sm-3 col-xs-6">
-                <a href="#">
+            
                   <img class="img-responsive img-hover img-related" src='<%=onePhoto.imageUrl%>' alt="">
-                 </a>
+                
                 </div>
                 <% }) %>
         </div>
            
         <!-- /.row -->
+<!-- Reviews Row -->
+        <div class="row">
+        <div class="col-lg-12">
+        <h3 class="page-header"> User Reviews </h3>
+        </div>
 
-        <hr>
-        <h3> User Reviews </h3>
 
-<ul>
   <% photo.reviews.forEach((oneReview) => { %>
-    <li>
-      <p> <%= oneReview.content %> </p>
-      <p><%= oneReview.stars %> ⭐️       out of 5 </p>
-      <strong> <%= oneReview.author %> </strong>
-    </li>
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#reviewCollapse-<%=oneReview.author%>"><strong> <%= oneReview.author %> </strong> <span><%= oneReview.stars %> ⭐️       out of 5 </span></a>
+        </h4>
+      </div>
+      <div id="reviewCollapse-<%=oneReview.author%>" class="panel-collapse collapse">
+        <div class="panel-body"><%= oneReview.content %></div>
+      </div>
+    </div>
+  </div>
   <% }) %>
-</ul>
+
+</div>
+<!-- /.row -->
+
 <script>
 function myFunction() {
     alert("WARNING!!! You are permanently deleting this picture.Hit back now to avoid this action");

@@ -1,5 +1,5 @@
     <!-- Page Content -->
-    <div class="container">
+<div class="container">
 
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
@@ -15,26 +15,27 @@
             </div>
         </div>
         <!-- /.row -->
+        
 
-        <!-- Projects Row -->
-        <div class="row">  
-            <hr>
-<% photoList.forEach((onePhoto) => { %>
- <div class="col-md-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4> <%= onePhoto.photoTitle%></h4>
-          </div>
-          <div class="col-md-12 col-sm-6">
-                <a href="/photo/<%= onePhoto._id %>">
-                   <img class="img-responsive img-portfolio img-hover" src='<%=onePhoto.imageUrl%>' alt="">
-                </a>
-                  
-          </div>
+
+        <div class="row"> 
+             <% photoList.forEach((onePhoto) => { %>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4> <%= onePhoto.photoTitle%></h4>
+                    </div>
+                    <div class="col-md-12 col-sm-6">
+                            <a href="/photo/<%= onePhoto._id %>">
+                            <img class="img-responsive img-portfolio img-hover" src='<%=onePhoto.imageUrl%>' alt="">
+                            </a>
+                            
+                    </div>
+                    </div>
+                </div>
+            <% }) %>
         </div>
 </div>
-  <% }) %>
-  </div>
   
 
 

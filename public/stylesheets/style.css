@@ -16,7 +16,7 @@ a {
     height: 100%;
 }
 
-/* Background images are set within the HTML using inline CSS, not here */
+
 
 .fill {
     width: 100%;
@@ -26,4 +26,16 @@ a {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
+}
+.p-details{
+  margin-bottom: 5px;
+}
+.h3-details{
+  
+    margin-top: 5px;
+    margin-bottom: 20px;
+
+}
+.p-description{
+  margin-bottom: 60px;
 }

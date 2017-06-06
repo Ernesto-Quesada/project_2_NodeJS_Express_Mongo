@@ -7,6 +7,14 @@ const User = require('../models/userModel.js');
 
 
 const authRoutes = express.Router();
+authRoutes.get('/contact',
+    //        redirects to '/' (home page) if you ARE logged in
+  //ensure.ensureNotLoggedIn('/'),
+
+  (req, res, next) => {
+    res.render('contact.ejs');
+  }
+);
 
 
 authRoutes.get('/signup',
